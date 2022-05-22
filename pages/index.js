@@ -2,6 +2,7 @@
 import Header from '../components/Header'
 import BuyTokens from '../components/BuyTokens'
 import Notice from '../components/Notice'
+import Asset from '../components/Asset'
 
 // Icons
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
@@ -71,10 +72,10 @@ export default function Home() {
         <div className={styles.rightMain}>
           <div className={styles.rightMainItem}>
             <div className={styles.ItemTitle}>Crypto Currencies</div>
-
             <BiDotsHorizontalRounded className={styles.moreOptions} />
           </div>
           {/* Map through coins and for every coin make and asset component*/}
+          <Asset />
           <div className={styles.rightMainItem}>
             <div className={styles.ItemTitle}>Lists</div>
               <AiOutlinePlus className={styles.moreOptions} />
