@@ -12,22 +12,34 @@ const BuyTokens = () => {
     return (
         <form className={styles.formContainer}>
             <div className='flex h-full w-full flex-col items-center'>
-            <select
-                className={styles.select}              
-            >
-                <option className={styles.options} value='BTC'>
-                    BTC
-                </option>
-                <option className={styles.options} value='ETH'>
-                    ETH
-                </option>
-                <option className={styles.options} value='SOL'>
-                    SOL
-                </option>
-                <option className={styles.options} value='USDC'>
-                    USDC
-                </option>
-            </select>
+                <select
+                    className={styles.select}              
+                >
+                    <option className={styles.options} value='BTC'>
+                        BTC
+                    </option>
+                    <option className={styles.options} value='ETH'>
+                        ETH
+                    </option>
+                    <option className={styles.options} value='SOL'>
+                        SOL
+                    </option>
+                    <option className={styles.options} value='USDC'>
+                        USDC
+                    </option>
+                </select>
+                <input
+                    placeholder='Amount...'
+                    className={styles.inputAmount}
+                    type='text'
+                />
+                <button
+                    className={styles.noticeCTA}
+                    type='button'
+                    // onClick={() => mint()}
+                >   
+                    Send
+                </button>
             </div>
         </form>    
     )
