@@ -1,5 +1,6 @@
 import logo from '../assets/logo.png'
 import Image from 'next/image'
+import { AiOutlineSearch } from 'react-icons/ai'
 
 const styles = {
   container: 'flex w-screen h-16 bg-black px-24 py-3 mb-5 fixed',
@@ -21,6 +22,14 @@ const Header = () => {
     <div className={styles.container}>
       <div className={styles.leftHeader}>
         <Image src={logo} height={100} width={100} className={styles.logo} />
+      </div>
+      <div className={styles.searchWrapper}>
+        <div className={styles.searchInputContainer}>
+          <AiOutlineSearch className={styles.searchIcon} />
+          <div className={styles.searchInputWrapper}>
+            <input placeholder='Search...' className={styles.searchInput} />
+          </div>
+        </div>
       </div>
     </div>
   )
