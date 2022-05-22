@@ -1,8 +1,10 @@
-//Icons
+// Components
+import Header from '../components/Header'
+// Icons
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
 
-//Styles
+// Styles
 const styles = {
   wrapper: 'w-screen h-screen flex flex-col',
   mainContainer: 'w-2/3 h-full m-auto flex mt-16',
@@ -33,7 +35,7 @@ const styles = {
 export default function Home() {
   return (
     <div className={styles.wrapper}>
-      {/*<Header /> */}
+      <Header />
       <div className={styles.mainContainer}>
         <div className={styles.leftMain}>
           <div className={styles.portfolioAmountContainer}>
