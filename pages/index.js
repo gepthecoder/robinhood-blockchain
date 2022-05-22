@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import BuyTokens from '../components/BuyTokens'
 import Notice from '../components/Notice'
 import Asset from '../components/Asset'
+import PortfolioChart from '../components/PortfolioChart'
 
 // Icons
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
@@ -51,7 +52,7 @@ export default function Home() {
           </div>
           <div>
             <div className={styles.chartContainer}>
-              {/* <PortfolioChart /> */}
+              <PortfolioChart />
             </div>
           </div>
           <div className={styles.buyingPowerContainer}>
