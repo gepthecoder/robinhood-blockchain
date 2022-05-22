@@ -1,5 +1,7 @@
 // Components
 import Header from '../components/Header'
+import BuyTokens from '../components/BuyTokens'
+
 // Icons
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
@@ -60,7 +62,7 @@ export default function Home() {
               <div className={styles.noticeMessage}>
                 Transfer your funds here.
               </div>
-              {/* <BuyTokens /> */}
+              <BuyTokens />
             </div>
           </div>
           {/* <Notice /> */}
