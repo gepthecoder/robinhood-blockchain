@@ -16,7 +16,9 @@ const styles = {
   menuItem: 'cursor-pointer font-bold hover:text-green-500 duration-300',
 }
 
-const isAuthenticated = false
+// TODO: make dynamic
+const isAuthenticated = true
+const formattedAccount = '0xe27...C5E'
 
 const Header = () => {
  
