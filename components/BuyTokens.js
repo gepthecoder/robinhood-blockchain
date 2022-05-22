@@ -10,7 +10,26 @@ const styles = {
 const BuyTokens = () => {
   
     return (
-        <div>BuyTokens</div>
+        <form className={styles.formContainer}>
+            <div className='flex h-full w-full flex-col items-center'>
+            <select
+                className={styles.select}              
+            >
+                <option className={styles.options} value='BTC'>
+                    BTC
+                </option>
+                <option className={styles.options} value='ETH'>
+                    ETH
+                </option>
+                <option className={styles.options} value='SOL'>
+                    SOL
+                </option>
+                <option className={styles.options} value='USDC'>
+                    USDC
+                </option>
+            </select>
+            </div>
+        </form>    
     )
 }
 
