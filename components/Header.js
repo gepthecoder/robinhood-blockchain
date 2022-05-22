@@ -31,6 +31,15 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <div className={styles.rightHeader}>
+        <div className={styles.menuItem}>Rewards</div>
+        <div className={styles.menuItem}>Portfolio</div>
+        <div className={styles.menuItem}>Cash</div>
+        <div className={styles.menuItem}>Messages</div>
+        <div className={styles.menuItem} onClick={() => connectWallet()}>
+            Login
+        </div>
+      </div>
     </div>
   )
 }
