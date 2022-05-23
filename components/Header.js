@@ -1,6 +1,8 @@
 import logo from '../assets/logo.png'
 import Image from 'next/image'
 import { AiOutlineSearch } from 'react-icons/ai'
+import React, { useContext } from 'react'
+import { RobinhoodContext } from '../context/RobinHoodContext'
 
 const styles = {
   container: 'flex w-screen h-16 bg-black px-24 py-3 mb-5 fixed',
@@ -16,11 +18,16 @@ const styles = {
   menuItem: 'cursor-pointer font-bold hover:text-green-500 duration-300',
 }
 
-// TODO: make dynamic
-const isAuthenticated = true
-const formattedAccount = '0xe27...C5E'
-
 const Header = () => {
+
+  /* What ever we put as a value in hook - we can actually retrive it from the context :o  */
+  const {
+    connectWallet,
+    signOut,
+    currentAccount,
+    isAuthenticated,
+    formattedAccount,
+  } = useContext(RobinhoodContext)
  
   return (
     <div className={styles.container}>
