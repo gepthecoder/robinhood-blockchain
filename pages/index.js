@@ -5,6 +5,10 @@ import Notice from '../components/Notice'
 import Asset from '../components/Asset'
 import PortfolioChart from '../components/PortfolioChart'
 
+import axios from 'axios'
+import { useState, useContext } from 'react'
+import { RobinhoodContext } from '../context/RobinhoodContext'
+
 // Icons
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
@@ -37,14 +41,21 @@ const styles = {
 }
 
 
-export default function Home() {
+export default function Home({coins}) {
+
+  /* Get first 15 tokens */
+  const [myCoins] = useState([...coins.slice(0, 15)])
+  console.log(myCoins)
+
+  const { balance, swapError } = useContext(RobinhoodContext)
+
   return (
     <div className={styles.wrapper}>
       <Header />
       <div className={styles.mainContainer}>
         <div className={styles.leftMain}>
           <div className={styles.portfolioAmountContainer}>
-            <div className={styles.portfolioAmount}>23 ETH</div>
+            <div className={styles.portfolioAmount}>{balance} ETH</div>
             <div className={styles.portfolioPercent}>
               +0.0008(+0.57%)
               <span className={styles.pastHour}>Past Hour</span>
@@ -57,7 +68,7 @@ export default function Home() {
           </div>
           <div className={styles.buyingPowerContainer}>
             <div className={styles.buyingPowerTitle}>Buying Power</div>
-            <div className={styles.buyingPowerAmount}>23 ETH</div>
+            <div className={styles.buyingPowerAmount}>{balance} ETH</div>
           </div>
           <div className={styles.notice}>
             <div className={styles.noticeContainer}>
@@ -75,11 +86,12 @@ export default function Home() {
             <div className={styles.ItemTitle}>Crypto Currencies</div>
             <BiDotsHorizontalRounded className={styles.moreOptions} />
           </div>
-          {/* Map through coins and for every coin make and asset component*/}
-          <Asset coin='BTC' price={0.89}/>
-          <Asset coin='SOL' price={-0.66}/>
-          <Asset coin='ETH' price={9}/>
-          <Asset coin='USDC' price={1}/>
+          {myCoins.map(coin => {
+              let price = parseFloat(coin.price)
+              price = price.toFixed(2)
+
+              return <Asset key={coin.uuid} coin={coin} price={price} />
+          })}
           <div className={styles.rightMainItem}>
             <div className={styles.ItemTitle}>Lists</div>
               <AiOutlinePlus className={styles.moreOptions} />
@@ -88,4 +100,31 @@ export default function Home() {
       </div>
     </div>
   )
+}
+
+export const getStaticProps = async () => {
+  const options = {
+    method: 'GET',
+    url: 'https://coinranking1.p.rapidapi.com/coins',
+    params: {
+      referenceCurrencyUuid: 'yhjMzLPhuIDl',
+      timePeriod: '24h',
+      tiers: '1',
+      orderBy: 'marketCap',
+      orderDirection: 'desc',
+      limit: '50',
+      offset: '0',
+    },
+    headers: {
+      'X-RapidAPI-Host': process.env.COIN_RANKING_HOST,
+      'X-RapidAPI-Key': process.env.COIN_RANKING_KEY,
+    },
+  }
+
+  const res = await axios.request(options)
+  const coins = res.data.data.coins
+
+  return {
+    props: { coins },
+  }
 }
