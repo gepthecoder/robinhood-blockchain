@@ -1,12 +1,31 @@
 import { createContext, useEffect, useState } from 'react'
 import { useMoralis } from 'react-moralis'
 
+// smart contracts and abi
+import {
+  dogeAbi,
+  bitcoinAbi,
+  solanaAbi,
+  usdcAbi,
+  dogeAddress,
+  bitcoinAddress,
+  solanaAddress,
+  usdcAddress,
+} from '../lib/constants'
+
 export const RobinhoodContext = createContext()
 
 export const RobinhoodProvider = ({ children }) => {
 
     const [currentAccount, setCurrentAccount] = useState('')
     const [formattedAccount, setFormattedAccount] = useState('')
+
+    /* Keep track of selected coin */
+    const [coinSelect, setCoinSelect] = useState('DOGE')
+    const [toCoin, setToCoin] = useState('')
+
+    const [balance, setBalance] = useState('')
+    const [amount, setAmount] = useState('')
 
     /* Moralis always listens in the backend for authentication activity */
     const { isAuthenticated, authenticate, user, logout, Moralis, enableWeb3 } = useMoralis()
@@ -25,6 +44,15 @@ export const RobinhoodProvider = ({ children }) => {
 
         setCurrentAccount(address)
         requestToCreateUserProfile(address)
+
+        const currentBalance = await Moralis.Web3API.account.getNativeBalance({
+          chain: 'rinkeby',
+          address: currentAccount,
+        })
+        const balanceToEth = Moralis.Units.FromWei(currentBalance.balance)
+        const formattedBalance = parseFloat(balanceToEth).toFixed(3)
+
+        setBalance(formattedBalance)
 
       } else {
         /* There shouldn't be an account if the user is not created */
@@ -49,6 +77,27 @@ export const RobinhoodProvider = ({ children }) => {
       } catch (error) {
         console.error(error)
       }
+    }
+
+    const getContractAddress = () => {
+      if (coinSelect === 'BTC') return bitcoinAddress
+      if (coinSelect === 'DOGE') return dogeAddress
+      if (coinSelect === 'SOL') return solanaAddress
+      if (coinSelect === 'USDC') return usdcAddress
+    }
+  
+    const getToAddress = () => {
+      if (toCoin === 'BTC') return bitcoinAddress
+      if (toCoin === 'DOGE') return dogeAddress
+      if (toCoin === 'SOL') return solanaAddress
+      if (toCoin === 'USDC') return usdcAddress
+    }
+  
+    const getToAbi = () => {
+      if (toCoin === 'BTC') return bitcoinAbi
+      if (toCoin === 'DOGE') return dogeAbi
+      if (toCoin === 'SOL') return solanaAbi
+      if (toCoin === 'USDC') return usdcAbi
     }
 
     const connectWallet = () => {
