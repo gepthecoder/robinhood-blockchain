@@ -11,6 +11,7 @@ import { AiOutlinePlus } from 'react-icons/ai'
 
 import axios from 'axios'
 import { useState, useContext } from 'react'
+import { RobinhoodContext } from '../context/RobinHoodContext'
 
 // Styles
 const styles = {
@@ -43,6 +44,7 @@ const styles = {
 export default function Home({coins}) {
   const [myCoins] = useState([...coins.slice(0,15)])
   console.log(myCoins)
+  const { balance, swapError } = useContext(RobinhoodContext)
 
   return (
     <div className={styles.wrapper}>
@@ -50,7 +52,7 @@ export default function Home({coins}) {
       <div className={styles.mainContainer}>
         <div className={styles.leftMain}>
           <div className={styles.portfolioAmountContainer}>
-            <div className={styles.portfolioAmount}>23 ETH</div>
+            <div className={styles.portfolioAmount}>{balance} ETH</div>
             <div className={styles.portfolioPercent}>
               +0.0008(+0.57%)
               <span className={styles.pastHour}>Past Hour</span>
@@ -63,7 +65,7 @@ export default function Home({coins}) {
           </div>
           <div className={styles.buyingPowerContainer}>
             <div className={styles.buyingPowerTitle}>Buying Power</div>
-            <div className={styles.buyingPowerAmount}>23 ETH</div>
+            <div className={styles.buyingPowerAmount}>{balance} ETH</div>
           </div>
           <div className={styles.notice}>
             <div className={styles.noticeContainer}>
