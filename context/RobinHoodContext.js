@@ -12,7 +12,6 @@ import {
   solanaAddress,
   usdcAddress,
 } from '../lib/constants'
-import swapTokens from '../pages/api/swapTokens'
 
 export const RobinhoodContext = createContext()
 
@@ -62,7 +61,7 @@ export const RobinhoodProvider = ({ children }) => {
       }
     }
 
-    const requestToCreateUserProfile = async (walletAddress) => {
+    const requestToCreateUserProfile = async (_walletAddress) => {
       try {
         console.log('Creating Sanity User..', '🤖')
 
@@ -72,7 +71,7 @@ export const RobinhoodProvider = ({ children }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            walletAddress: walletAddress,
+            walletAddress: _walletAddress,
           }),
         })
       } catch (error) {
@@ -108,6 +107,7 @@ export const RobinhoodProvider = ({ children }) => {
         if(coinSelect === 'ETH')
         {
           if(!isAuthenticated) return
+
           await Moralis.enableWeb3()
           const contractAddress = getToAddress()
           const abi = getToAbi()

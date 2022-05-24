@@ -9,6 +9,8 @@ import PortfolioChart from '../components/PortfolioChart'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
 
+import axios from 'axios'
+
 // Styles
 const styles = {
   wrapper: 'w-screen h-screen flex flex-col',
@@ -37,7 +39,9 @@ const styles = {
 }
 
 
-export default function Home() {
+export default function Home({coins}) {
+  console.log(coins)
+
   return (
     <div className={styles.wrapper}>
       <Header />
@@ -88,4 +92,31 @@ export default function Home() {
       </div>
     </div>
   )
+}
+
+export const getStaticProps = async () => {
+  const options = {
+    method: 'GET',
+    url: 'https://coinranking1.p.rapidapi.com/coins',
+    params: {
+      referenceCurrencyUuid: 'yhjMzLPhuIDl',
+      timePeriod: '24h',
+      tiers: '1',
+      orderBy: 'marketCap',
+      orderDirection: 'desc',
+      limit: '50',
+      offset: '0',
+    },
+    headers: {
+      'X-RapidAPI-Host': process.env.COIN_RANKING_HOST,
+      'X-RapidAPI-Key': process.env.COIN_RANKING_KEY,
+    },
+  }
+
+  const res = await axios.request(options)
+  const coins = res.data.data.coins
+
+  return {
+    props: { coins },
+  }
 }
