@@ -82,10 +82,12 @@ export default function Home({coins}) {
             <BiDotsHorizontalRounded className={styles.moreOptions} />
           </div>
           {/* Map through coins and for every coin make and asset component*/}
-          <Asset coin='BTC' price={0.89}/>
-          <Asset coin='SOL' price={-0.66}/>
-          <Asset coin='ETH' price={9}/>
-          <Asset coin='USDC' price={1}/>
+          {myCoins.map(coin => {
+            let price = parseFloat(coin.price)
+            price = price.toFixed(2)
+
+            return <Asset key={coin.uuid} coin={coin} price={price} />
+          })}
           <div className={styles.rightMainItem}>
             <div className={styles.ItemTitle}>Lists</div>
               <AiOutlinePlus className={styles.moreOptions} />
