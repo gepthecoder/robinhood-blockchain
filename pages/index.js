@@ -10,6 +10,7 @@ import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
 
 import axios from 'axios'
+import { useState, useContext } from 'react'
 
 // Styles
 const styles = {
@@ -40,7 +41,8 @@ const styles = {
 
 
 export default function Home({coins}) {
-  console.log(coins)
+  const [myCoins] = useState([...coins.slice(0,15)])
+  console.log(myCoins)
 
   return (
     <div className={styles.wrapper}>
